@@ -54,7 +54,7 @@ sysinfo = {workspace = true}
 # 验证码
 captcha_rust = {workspace = true}
 # skyTable  可选依赖
-skytable = {workspace = true, features = ["const-gen", "aio"], optional = true}
+skytable = {workspace = true, features = [], optional = true}
 
 #  openApi
 # utoipa = { workspace = true, features = ["axum_extras"] }

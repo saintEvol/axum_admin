@@ -36,7 +36,7 @@ anyhow = {workspace = true}
 sea-orm = {workspace = true, features = ["macros", "runtime-tokio-native-tls", "debug-print"]}
 
 # skyTable  可选依赖
-skytable = {workspace = true, features = ["const-gen", "aio"], optional = true}
+skytable = {workspace = true, features = [], optional = true}
 
 [features]
 # default = ["postgres", "mysql"]
