@@ -9,8 +9,8 @@ use tower_http::services::ServeDir;
 
 use super::{system, test};
 
-pub fn api() -> Router {
-    Router::new()
+pub fn api(router_handler: impl Fn(Router) -> Router) -> Router {
+    let framework_api = Router::new()
         // 文件上传api
         .nest_service(&CFG.web.upload_url, get_service(ServeDir::new(&CFG.web.upload_dir)))
         // 无需授权Api.通用模块
@@ -18,7 +18,9 @@ pub fn api() -> Router {
         // 系统管理模块
         .nest("/system", set_auth_middleware(system::system_api()))
         //  测试模块
-        .nest("/test", test_api())
+        .nest("/test", test_api());
+
+    router_handler(framework_api)
 }
 
 // 无需授权api

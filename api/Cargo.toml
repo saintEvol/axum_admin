@@ -13,8 +13,9 @@ app-service = {path = "../service"}
 middleware-fn = {path="../middleware-fn"}
 # 
 axum = {workspace = true, features = ["multipart"]}
-tower-http = {workspace = true}
-# 
+#tower-http = {workspace = true}
+tower-http = {workspace = true, features = ["cors","fs","compression-gzip"]}  #compression-gzip
+#
 futures = {workspace = true}
 # 
 tokio-stream = {workspace = true}

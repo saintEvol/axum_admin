@@ -11,7 +11,7 @@ content_gzip = true
 # 缓存时间 单位秒
 cache_time = 600
 #  缓存方式
-cache_method = 1  # 0: memory  1: skytable
+cache_method = 0  # 0: memory  1: skytable
 # api前缀
 api_prefix = "/api"
 [skytable]
@@ -46,4 +46,5 @@ jwt_secret = 'secret'
 # link = 'mysql://root:password@192.168.1.11:13306/db'
 # link = 'mysql://root:password@127.0.0.1:13306/db'
 # link = 'postgres://postgres:password@192.168.1.11:15432/db'
-link = 'sqlite://data/sqlite/data.db'
+link = 'mysql://root:xxxxxpassword@localhost:3306/news_hub'
+#link = 'sqlite://data/sqlite/data.db'
