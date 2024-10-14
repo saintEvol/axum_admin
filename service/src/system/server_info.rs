@@ -1,19 +1,20 @@
 use db::system::models::server_info::{Cpu, CpuLoad, DiskUsage, Memory, Network, Process, Server, SysInfo};
-use sysinfo::{CpuExt, NetworkExt, NetworksExt, ProcessExt, System, SystemExt};
+use sysinfo::*;
 
 pub fn get_oper_sys_info() -> SysInfo {
     let mut sys = System::new_all();
     sys.refresh_all();
     let pid = sysinfo::get_current_pid().expect("failed to get PID");
+    let cpu = &sys.cpus()[0];
     let server = Server {
-        oper_sys_name: sys.name().unwrap_or_else(|| "unknown".to_owned()),
-        host_name: sys.host_name().unwrap_or_else(|| "unknown".to_owned()),
-        system_version: sys.long_os_version().unwrap_or_else(|| "unknown".to_owned()),
-        system_kerne: sys.kernel_version().unwrap_or_else(|| "unknown".to_owned()),
+        oper_sys_name: System::name().unwrap_or_else(|| "unknown".to_owned()),
+        host_name: System::host_name().unwrap_or_else(|| "unknown".to_owned()),
+        system_version: System::long_os_version().unwrap_or_else(|| "unknown".to_owned()),
+        system_kerne: System::kernel_version().unwrap_or_else(|| "unknown".to_owned()),
     };
     let process = match sys.process(pid) {
         Some(p) => Process {
-            name: p.name().to_string(),
+            name: p.name().to_str().unwrap().to_string(),
             used_memory: p.memory(),
             used_virtual_memory: p.virtual_memory(),
             cup_usage: p.cpu_usage(),
@@ -31,7 +32,7 @@ pub fn get_oper_sys_info() -> SysInfo {
 
     let mut network: Vec<Network> = Vec::new();
 
-    for (interface_name, data) in sys.networks().iter() {
+    for (interface_name, data) in Networks::new_with_refreshed_list().iter() {
         network.push(Network {
             name: interface_name.to_string(),
             received: data.received(),
@@ -41,17 +42,17 @@ pub fn get_oper_sys_info() -> SysInfo {
         });
     }
     let cpu = Cpu {
-        name: sys.global_cpu_info().brand().to_string(),
+        name: cpu.brand().to_string(),
         arch: std::env::consts::ARCH.to_string(),
         cores: sys.physical_core_count().map(|c| c.to_string()).unwrap_or_else(|| "Unknown".to_owned()),
-        total_use: sys.global_cpu_info().cpu_usage(),
-        frequency: sys.global_cpu_info().frequency(),
+        total_use: sys.global_cpu_usage(),
+        frequency: cpu.frequency(),
         processors: sys.cpus().len(),
     };
     let cpu_load = CpuLoad {
-        one: sys.load_average().one,
-        five: sys.load_average().five,
-        fifteen: sys.load_average().fifteen,
+        one: System::load_average().one,
+        five: System::load_average().five,
+        fifteen: System::load_average().fifteen,
     };
     let memory = Memory {
         total_memory: sys.total_memory(),

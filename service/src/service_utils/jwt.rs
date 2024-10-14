@@ -12,6 +12,7 @@ use db::common::ctx::UserInfoCtx;
 use headers::{authorization::Bearer, Authorization};
 use jsonwebtoken::{decode, encode, errors::ErrorKind, DecodingKey, EncodingKey, Header, Validation};
 use once_cell::sync::Lazy;
+use sea_orm::prelude::async_trait;
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 
@@ -51,7 +52,7 @@ pub struct Claims {
     pub exp: i64,
 }
 
-#[axum::async_trait]
+// #[async_trait::async_trait]
 impl<S> FromRequestParts<S> for Claims
 where
     S: Send + Sync,
