@@ -71,3 +71,12 @@ https://github.com/lingdu1234/IUI314
 * 数据库迁移重置：`sea-orm-cli migrate fresh`
 * 数据库降级：`sea-orm-cli migrate down`
 * 更多数据库迁移操作详见：[https://www.sea-ql.org/SeaORM/docs/migration/running-migration](https://www.sea-ql.org/SeaORM/docs/migration/running-migration)
+
+## 生成Entity
+# Generate entity files of database `bakeries_db` to `src/entities`
+```bash
+$ sea-orm-cli generate entity \
+--with-serde both
+-u mysql://root:root@localhost:3306/bakeries_db \
+-o src/entities
+```

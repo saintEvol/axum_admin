@@ -4,14 +4,13 @@ use sea_orm::entity::prelude::*;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq, Serialize, Deserialize)]
-#[sea_orm(table_name = "sys_user_role")]
+#[sea_orm(table_name = "test_data_scope")]
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
     pub id: String,
-    pub user_id: String,
-    pub role_id: String,
-    pub created_by: String,
-    pub created_at: DateTime,
+    pub data_a: Option<String>,
+    pub data_b: Option<String>,
+    pub created_by: Option<String>,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]

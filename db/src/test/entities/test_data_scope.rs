@@ -47,10 +47,10 @@ impl ColumnTrait for Column {
     type EntityName = Entity;
     fn def(&self) -> ColumnDef {
         match self {
-            Self::Id => ColumnType::String(Some(32u32)).def(),
-            Self::DataA => ColumnType::String(Some(10u32)).def().null(),
-            Self::DataB => ColumnType::String(Some(10u32)).def().null(),
-            Self::CreatedBy => ColumnType::String(Some(32u32)).def().null(),
+            Self::Id => ColumnType::String(StringLen::N(32u32)).def(),
+            Self::DataA => ColumnType::String(StringLen::N(10u32)).def().null(),
+            Self::DataB => ColumnType::String(StringLen::N(10u32)).def().null(),
+            Self::CreatedBy => ColumnType::String(StringLen::N(32u32)).def().null(),
         }
     }
 }
