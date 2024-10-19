@@ -7,3 +7,4 @@ mod route;
 
 //  重新导出
 pub use route::api;
+pub use route::set_auth_middleware;

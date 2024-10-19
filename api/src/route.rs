@@ -32,7 +32,7 @@ fn no_auth_api() -> Router {
 }
 
 // 设置授权路由的中间件
-fn set_auth_middleware(router: Router) -> Router {
+pub fn set_auth_middleware(router: Router) -> Router {
     let router = match &CFG.log.enable_oper_log {
         true => router.layer(middleware::from_fn(middleware_fn::OperLog)),
         false => router,
