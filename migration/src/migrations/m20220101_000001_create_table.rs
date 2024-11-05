@@ -1,5 +1,5 @@
 use anyhow::Result;
-use db::{system::entities::*, test::entities::*};
+use db::{system::entities::*};
 pub use sea_orm::{ConnectionTrait, DatabaseConnection, DatabaseTransaction, Schema};
 use sea_orm_migration::prelude::*;
 
