@@ -53,9 +53,9 @@ pub fn start(
     let t = std::thread::spawn(
         ||{
             RT.block_on(async {
-                if std::env::var_os("RUST_LOG").is_none() {
-                    std::env::set_var("RUST_LOG", &CFG.log.log_level);
-                }
+                // if std::env::var_os("RUST_LOG").is_none() {
+                //     std::env::set_var("RUST_LOG", &CFG.log.log_level);
+                // }
                 my_env::setup();
 
                 // // 系统变量设置

@@ -1,7 +1,7 @@
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
 /// 配置文件
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone, Serialize)]
 pub struct Configs {
     /// 程序配置
     pub server: Server,
@@ -15,14 +15,16 @@ pub struct Configs {
     pub database: Database,
     ///  JWT 配置
     pub jwt: Jwt,
-    /// 日志配置
-    pub log: Log,
+    // /// 日志配置
+    // pub log: Log,
     /// skytable
     pub skytable: SkyTable,
+    /// 允许操作日志输出
+    pub enable_oper_log: bool,
 }
 
 /// server 配置文件
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone, Serialize)]
 pub struct Server {
     /// 服务器名称
     pub name: String,
@@ -42,7 +44,7 @@ pub struct Server {
 }
 
 /// server 配置文件
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone, Serialize)]
 pub struct Web {
     /// 静态网站根目录
     pub dir: String,
@@ -54,7 +56,7 @@ pub struct Web {
     /// 文件上传路径
     pub upload_url: String,
 }
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Clone, Serialize)]
 pub struct Cert {
     /// cert
     pub cert: String,
@@ -63,7 +65,7 @@ pub struct Cert {
     pub key: String,
 }
 /// system 系统配置
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize, Clone)]
 pub struct System {
     /// 超级管理员账号
     pub super_user: Vec<String>,
@@ -72,7 +74,7 @@ pub struct System {
 }
 
 /// jwt 配置文件
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize, Clone)]
 pub struct Jwt {
     /// JWT 密钥
     pub jwt_secret: String,
@@ -80,27 +82,14 @@ pub struct Jwt {
     pub jwt_exp: i64,
 }
 
-/// 日志配置
-#[derive(Debug, Deserialize)]
-pub struct Log {
-    /// `log_level` 日志输出等级
-    pub log_level: String,
-    /// `dir` 日志输出文件夹
-    pub dir: String,
-    /// `file` 日志输出文件名
-    pub file: String,
-    /// 允许操作日志输出
-    pub enable_oper_log: bool,
-}
-
 /// 数据库
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize, Clone)]
 pub struct Database {
     /// 数据库连接
     pub link: String,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize, Clone)]
 pub struct SkyTable {
     /// server address
     pub server: String,

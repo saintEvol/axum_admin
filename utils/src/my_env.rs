@@ -35,16 +35,16 @@ fn show_log() {
     // println!()
 }
 
-pub fn get_log_level() -> Level {
-    match CFG.log.log_level.as_str() {
-        "TRACE" => tracing::Level::TRACE,
-        "DEBUG" => tracing::Level::DEBUG,
-        "INFO" => tracing::Level::INFO,
-        "WARN" => tracing::Level::WARN,
-        "ERROR" => tracing::Level::ERROR,
-        _ => tracing::Level::INFO,
-    }
-}
+// pub fn get_log_level() -> Level {
+//     match CFG.log.log_level.as_str() {
+//         "TRACE" => tracing::Level::TRACE,
+//         "DEBUG" => tracing::Level::DEBUG,
+//         "INFO" => tracing::Level::INFO,
+//         "WARN" => tracing::Level::WARN,
+//         "ERROR" => tracing::Level::ERROR,
+//         _ => tracing::Level::INFO,
+//     }
+// }
 
 #[cfg(target_os = "windows")]
 use time::format_description::well_known::Rfc3339;

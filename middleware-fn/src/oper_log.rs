@@ -54,7 +54,7 @@ pub async fn oper_log_add(ctx: ReqCtx, ctx_user: UserInfoCtx, res: String, statu
 
 /// add 添加
 pub async fn oper_log_add_fn(ctx: ReqCtx, ctx_user: UserInfoCtx, res: String, status: String, err_msg: String, duration: Duration) -> Result<()> {
-    if !CFG.log.enable_oper_log {
+    if !CFG.enable_oper_log {
         return Ok(());
     }
     let apis = ALL_APIS.lock().await;
