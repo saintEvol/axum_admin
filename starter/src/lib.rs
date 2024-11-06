@@ -1,11 +1,8 @@
 #[cfg(test)]
 mod tests {
-    use super::*;
 
     #[test]
     fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
     }
 }
 // use std::time::Duration;
@@ -41,14 +38,18 @@ use tower_http::{
 use tower_service::Service;
 use tracing::{error, warn};
 use tracing_subscriber::{fmt, layer::SubscriberExt, EnvFilter, Registry};
+use configs::cfgs::Configs;
 use utils::my_env::{self, RT};
 // 路由日志追踪
 
 // #[tokio::main]
 pub fn start(
-    config_path: &str,
+    configs: Configs,
     route_handler: impl Fn(Router) -> Router + Send + 'static
 ) -> JoinHandle<()> {
+    // 设置配置
+    Configs::set_config(configs);
+
     let t = std::thread::spawn(
         ||{
             RT.block_on(async {

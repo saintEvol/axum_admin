@@ -9,5 +9,6 @@ version.workspace = true
 [dependencies]
 once_cell = {workspace = true }
 serde = {workspace = true,features = ["derive"]}
+parking_lot.workspace = true
 
 toml = {workspace = true}
