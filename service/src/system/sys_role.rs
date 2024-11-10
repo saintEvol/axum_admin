@@ -86,7 +86,7 @@ pub async fn check_data_is_exist(role_name: String, db: &DatabaseConnection) -> 
 
 /// add 添加
 pub async fn add(db: &DatabaseConnection, req: SysRoleAddReq, user_id: &str) -> Result<String> {
-    //  检查字典类型是否存在
+    // 检查角色名是否已经存在
     if check_data_is_exist(req.clone().role_name, db).await? {
         return Err(anyhow!("数据已存在，请检查后重试"));
     }

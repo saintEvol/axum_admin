@@ -100,16 +100,15 @@ pub async fn get_related_api_and_db(Query(page_params): Query<PageParams>, Query
 /// 获取用户路由
 pub async fn get_routers(user: Claims) -> Res<Vec<SysMenuTree>> {
     let db = DB.get_or_init(db_conn).await;
-    //  获取 用户角色
-    let role_id = match system::sys_role::get_current_admin_role(db, &user.id).await {
-        Ok(x) => x,
-        Err(e) => return Res::with_err(&e.to_string()),
-    };
-
     // 检查是否超管用户
     let res = if CFG.system.super_user.contains(&user.id) {
         system::sys_menu::get_all_router_tree(db).await
     } else {
+        //  获取 用户角色
+        let role_id = match system::sys_role::get_current_admin_role(db, &user.id).await {
+            Ok(x) => x,
+            Err(e) => return Res::with_err(&e.to_string()),
+        };
         system::sys_menu::get_admin_menu_by_role_ids(db, &role_id).await
     };
     match res {
