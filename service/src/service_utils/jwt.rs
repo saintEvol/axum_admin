@@ -73,15 +73,15 @@ where
                     return Err(AuthError::CheckOutToken);
                 }
             }
-            Err(err) => match *err.kind() {
+            Err(err) => return match *err.kind() {
                 ErrorKind::InvalidToken => {
-                    return Err(AuthError::InvalidToken);
+                    Err(AuthError::InvalidToken)
                 }
                 ErrorKind::ExpiredSignature => {
-                    return Err(AuthError::MissingCredentials);
+                    Err(AuthError::MissingCredentials)
                 }
                 _ => {
-                    return Err(AuthError::WrongCredentials);
+                    Err(AuthError::WrongCredentials)
                 }
             },
         };
